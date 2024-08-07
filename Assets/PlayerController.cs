@@ -20,6 +20,7 @@ public class NewBehaviourScript : MonoBehaviour
     GameObject[] ErrorGO;
     public Material material;
     public GameObject[] Layers;
+    public TMP_Text LevelText;
     private int counter = 0; // private counter
 
     void Start()
@@ -72,16 +73,14 @@ public class NewBehaviourScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Final"))
         {
             collision.gameObject.GetComponent<Renderer>().material.color = Color.green;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            StopVelocity();
             ActivateLayer();
         }
         if (collision.gameObject.CompareTag("Error"))
         {
             collision.gameObject.GetComponent<Renderer>().material.color = Color.red;
             transform.position = LastPosition;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            StopVelocity();
             Health -= 1;
             HealthTxt.text = Health.ToString();
 
@@ -117,6 +116,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (gameObject.transform.position.y <= 0)
         {
             Debug.Log("Game Over");
+            StopVelocity();
             gameObject.transform.position = StartPosition;
         }
     }
@@ -133,10 +133,28 @@ public class NewBehaviourScript : MonoBehaviour
 
         // Activate the next layer
         Layers[counter].SetActive(true);
+        LevelText.text = "Level " + counter.ToString();
 
         // Reset player position
         this.gameObject.transform.position = StartPosition;
         Health = 3;
         HealthTxt.text = Health.ToString();
+
+        if(counter  == Layers.Length - 1)
+        {
+            Debug.Log("gg");
+            WinGame();
+        }
+        Debug.Log("counter:" + counter);
+        Debug.Log(Layers.Length);
+    }
+    private void StopVelocity()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+    }
+    private void WinGame()
+    {
+        WonText.gameObject.SetActive(true); 
     }
 }
