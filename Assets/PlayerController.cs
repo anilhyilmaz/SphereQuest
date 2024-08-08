@@ -46,7 +46,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+       /* if (Input.GetKeyDown(KeyCode.W))
         {
             LastPosition = transform.position;
             rb.AddForce(Vector3.left * speed);
@@ -60,7 +60,7 @@ public class NewBehaviourScript : MonoBehaviour
         {
             LastPosition = transform.position;
             rb.AddForce(Vector3.back * speed);
-        }
+        }*/
 
         GameOver();
         FollowPlayer();
@@ -142,7 +142,7 @@ public class NewBehaviourScript : MonoBehaviour
         Health = 3;
         HealthTxt.text = Health.ToString();
 
-        if(counter  == Layers.Length - 1)
+        if (counter == Layers.Length - 1)
         {
             Debug.Log("gg");
             WinGame();
@@ -157,6 +157,22 @@ public class NewBehaviourScript : MonoBehaviour
     }
     private void WinGame()
     {
-        WonText.gameObject.SetActive(true); 
+        WonText.gameObject.SetActive(true);
+    }
+    public void ForwardMove()
+    {
+        Debug.Log("Forward");
+        LastPosition = transform.position;
+        rb.AddForce(Vector3.left * speed);
+    }
+    public void RightMove()
+    {
+        LastPosition = transform.position;
+        rb.AddForce(Vector3.forward * speed);
+    }
+    public void LeftMove()
+    {
+        LastPosition = transform.position;
+        rb.AddForce(Vector3.back * speed);
     }
 }
