@@ -22,6 +22,7 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject[] Layers;
     public TMP_Text LevelText;
     private int counter = 0; // private counter
+    public Vector3 input;
 
     void Start()
     {
@@ -60,6 +61,7 @@ public class NewBehaviourScript : MonoBehaviour
             LastPosition = transform.position;
             rb.AddForce(Vector3.back * speed);
         }
+
         GameOver();
         FollowPlayer();
     }
